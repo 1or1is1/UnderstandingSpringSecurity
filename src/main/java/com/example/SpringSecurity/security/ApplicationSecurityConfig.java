@@ -3,6 +3,7 @@ package com.example.SpringSecurity.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -28,7 +30,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*")
                 .permitAll()
-                .antMatchers("/api/**")
+                /*.antMatchers("/api/**")
                 .hasRole(ApplicationUserRole.STUDENT.toString())
                 .antMatchers(HttpMethod.GET,"/management/api/**")
                 .hasAnyRole(ApplicationUserRole.ADMIN.toString(), ApplicationUserRole.ADMINTRAINEE.toString())
@@ -37,7 +39,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/management/api/**")
                 .hasAuthority(ApplicationUserPermission.STUDENT_WRITE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/management/api/**")
-                .hasAuthority(ApplicationUserPermission.STUDENT_WRITE.getPermission())
+                .hasAuthority(ApplicationUserPermission.STUDENT_WRITE.getPermission())*/
                 .anyRequest()
                 .authenticated()
                 .and()
